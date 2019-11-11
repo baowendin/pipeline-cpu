@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module control(input wire [5:0]op,
+module Control(input wire [5:0]op,
 					input wire [4:0]rs,
 					input wire [4:0]rt,
 					input wire [5:0]func,
