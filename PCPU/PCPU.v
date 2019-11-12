@@ -2,14 +2,12 @@
 module PCPU(
     input wire clk,
     input wire rst,
-    input wire MIO_ready,
-    input wire [31:0] data_mem,
-    input wire [31:0] inst_mem,
-    output wire mem_w,
     output wire [31:0] inst_addr
+    input wire [31:0] inst_mem,
     output wire [31:0] data_addr,
+    input wire [31:0] data_mem,
+    output wire data_we,
     output wire [31:0] data_write,
-    output wire CPU_MIO,
 );
     `include "Parameters.v"
 
@@ -148,7 +146,7 @@ module PCPU(
     
 
     // MEM wires
-    assign mem_w = exmem_wmem;
+    assign data_we = exmem_wmem;
     assign data_addr = exmem_alu_result;
     assign data_write = exmem_b_data;
     assign fwd_mem_alu_res = exmem_alu_result;
