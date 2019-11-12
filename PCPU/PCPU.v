@@ -8,13 +8,16 @@ module PCPU(
     output wire mem_w,
     output wire [31:0] inst_addr
     output wire [31:0] data_addr,
+    output wire [31:0] data_write,
     output wire CPU_MIO,
 );
+    `include "Parameters.v"
+
     // PC
     wire remain_pc; // NOTE: from later stages
     wire [31:0] pc_new; // NOTE: from later stages
     reg [31:0] pc = 0;
-    assign inst_mem = pc;
+    assign inst_addr = pc;
     always @(posedge clk or posedge rst) begin
         pc <= rst ? 0 : (remain_pc ? pc : pc_new);
     end
@@ -86,9 +89,10 @@ module PCPU(
     wire [31:0] jr_addr = a_fwd_data;
     assign branch_target = jr ? jr_addr : (jump ? j_addr : br_addr);
 
+    // if JAL, write PC into $ra
     wire [31:0] a_final = jal ? ifid_pc : a_fwd_data;
     wire [31:0] b_final = jal ? 0 : b_fwd_data;
-    wire [4:0] wb_reg_final = jal ? 5'b11111 : (reg_wb_rd ? rd : rt);
+    wire [4:0] wreg_dst_final = jal ? 5'h1F : (reg_wb_rd ? rd : rt);
 
 
     // ID/EX pipeline register
@@ -97,7 +101,7 @@ module PCPU(
     reg idex_wreg, idex_m2reg, idex_wmem, idex_aluimm, idex_shift;
     reg [31:0] idex_a_data, idex_b_data;
     reg [31:0] idex_imm_ext;
-    reg [4:0] idex_wb_reg;
+    reg [4:0] idex_wreg_dst;
     always @(posedge clk or posedge rst) begin
         idex_ir <= rst ? 0 : ifid_ir;
         idex_aluc <= rst ? 0 : aluc;
@@ -109,7 +113,7 @@ module PCPU(
         idex_a_data <= rst ? 0 : a_final;
         idex_b_data <= rst ? 0 : b_final;
         idex_imm_ext <= rst ? 0 : imm_ext;
-        idex_wb_reg <= rst ? 0 : wb_reg_final;
+        idex_wreg_dst <= rst ? 0 : wreg_dst_final;
     end
 
 
@@ -117,7 +121,13 @@ module PCPU(
     wire [4:0] shamt = idex_imm_ext[10:6];
     wire [31:0] alu_a = idex_shift ? shamt : idex_a_data;
     wire [31:0] alu_b = idex_aluimm ? idex_imm_ext : idex_b_data;
-    wire [31:0] ex_alu_result; // TODO: ALU here
+    wire [31:0] ex_alu_result;
+    ALU alu(
+        .A(alu_a),
+        .B(alu_b),
+        .ALU_operation(idex_aluc),
+        .res(ex_alu_result)
+    );
     assign fwd_ex_alu_res = ex_alu_result;
 
 
@@ -125,7 +135,7 @@ module PCPU(
     reg [31:0] exmem_ir;
     reg exmem_wreg, exmem_m2reg, exmem_wmem;
     reg [31:0] exmem_alu_result, exmem_b_data;
-    reg [4:0] exmem_wb_reg;
+    reg [4:0] exmem_wreg_dst;
     always @(posedge clk or posedge rst) begin
         exmem_ir <= rst ? 0 : idex_ir;
         exmem_wreg <= rst ? 0 : idex_wreg;
@@ -133,23 +143,36 @@ module PCPU(
         exmem_wmem <= rst ? 0 : idex_wmem;
         exmem_alu_result <= rst ? 0 : ex_alu_result; 
         exmem_b_data <= rst ? 0 : idex_b_data; 
-        exmem_wb_reg <= rst ? 0 : idex_wb_reg; 
+        exmem_wreg_dst <= rst ? 0 : idex_wreg_dst; 
     end
     
 
     // MEM wires
-    wire [31:0] mem_alu_result;
-    wire [31:0] mem_data;
+    assign mem_w = exmem_wmem;
+    assign data_addr = exmem_alu_result;
+    assign data_write = exmem_b_data;
+    assign fwd_mem_alu_res = exmem_alu_result;
+    assign fwd_mem_data = data_mem;
 
 
     // MEM/WB pipeline register
     reg [31:0] memwb_ir;
     reg memwb_wreg, memwb_m2reg;
     reg [31:0] memwb_data, memwb_alu_result;
-    reg [4:0] memwb_wb_reg;
+    reg [4:0] memwb_wreg_dst;
+    always @(posedge clk or posedge rst) begin
+        memwb_ir <= rst ? 0 : exmem_ir;
+        memwb_wreg <= rst ? 0 : exmem_wreg;
+        memwb_m2reg <= rst ? 0 : exmem_m2reg;
+        memwb_data <= rst ? 0 : data_mem;
+        memwb_alu_result <= rst ? 0 : exmem_alu_result;
+        memwb_wreg_dst <= rst ? 0 : exmem_wreg_dst;
+    end
 
 
     // WB wires
-    wire [31:0] wb_data;
+    assign reg_we = memwb_wreg;
+    assign reg_w = memwb_wreg_dst;
+    assign reg_w_data = memwb_m2reg ? memwb_data : memwb_alu_result;
 
 endmodule
