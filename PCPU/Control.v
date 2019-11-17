@@ -47,6 +47,7 @@ module Control(
 		wreg = 0;
 		mem2reg = 0;
 		wmem = 0;
+		aluc = 0;
 		aluimm = 0;
 		shift = 0;
 		sext = 0;
@@ -204,6 +205,7 @@ module Control(
 	// the forward situation
 	always @(*) begin
 		fwda = 2'b00;
+		fwdb = 2'b00;
 		if (rs_used && rs != 0) begin
 			if (exe_regw_addr == rs && exe_wreg)
 				fwda = 2'b11;

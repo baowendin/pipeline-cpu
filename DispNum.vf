@@ -7,11 +7,11 @@
 // \   \   \/     Version : 14.7
 //  \   \         Application : sch2hdl
 //  /   /         Filename : DispNum.vf
-// /___/   /\     Timestamp : 09/16/2019 09:21:11
+// /___/   /\     Timestamp : 11/17/2019 17:57:41
 // \   \  /  \ 
 //  \___\/\___\ 
 //
-//Command: sch2hdl -sympath C:/Users/z/Documents/Projects/OrgLab/Lab12/OExp09/ipcore_dir -intstyle ise -family kintex7 -verilog C:/Users/z/Documents/Projects/OrgLab/Lab12/OExp09/DispNum.vf -w C:/Users/z/Documents/Projects/OrgLab/Lab12/OExp09/DispNum.sch
+//Command: sch2hdl -sympath C:/Users/z/Documents/Projects/pipeline-cpu/ipcore_dir -intstyle ise -family kintex7 -verilog C:/Users/z/Documents/Projects/pipeline-cpu/DispNum.vf -w C:/Users/z/Documents/Projects/pipeline-cpu/DispNum.sch
 //Design Name: DispNum
 //Device: kintex7
 //Purpose:

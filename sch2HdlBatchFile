@@ -1,0 +1,4 @@
+sch2hdl,-sympath,C:/Users/z/Documents/Projects/pipeline-cpu/ipcore_dir,-intstyle,ise,-family,kintex7,-verilog,C:/Users/z/Documents/Projects/pipeline-cpu/Display.vf,-w,C:/Users/z/Documents/Projects/pipeline-cpu/Display.sch
+sch2hdl,-sympath,C:/Users/z/Documents/Projects/pipeline-cpu/ipcore_dir,-intstyle,ise,-family,kintex7,-verilog,C:/Users/z/Documents/Projects/pipeline-cpu/DispNum.vf,-w,C:/Users/z/Documents/Projects/pipeline-cpu/DispNum.sch
+sch2hdl,-sympath,C:/Users/z/Documents/Projects/pipeline-cpu/ipcore_dir,-intstyle,ise,-family,kintex7,-verilog,C:/Users/z/Documents/Projects/pipeline-cpu/MC14495_ZJU.vf,-w,C:/Users/z/Documents/Projects/pipeline-cpu/MC14495_ZJU.sch
+sch2hdl,-sympath,C:/Users/z/Documents/Projects/pipeline-cpu/ipcore_dir,-intstyle,ise,-family,kintex7,-verilog,C:/Users/z/Documents/Projects/pipeline-cpu/DispNum.vf,-w,C:/Users/z/Documents/Projects/pipeline-cpu/DispNum.sch

@@ -2,12 +2,12 @@
 module PCPU(
     input wire clk,
     input wire rst,
-    output wire [31:0] inst_addr
+    output wire [31:0] inst_addr,
     input wire [31:0] inst_mem,
     output wire [31:0] data_addr,
     input wire [31:0] data_mem,
     output wire data_we,
-    output wire [31:0] data_write,
+    output wire [31:0] data_write
 );
     `include "Parameters.v"
 
@@ -48,8 +48,19 @@ module PCPU(
     wire jal, wreg, m2reg, wmem, aluimm, shift, sext, jr, reg_wb_rd, jump;
     wire [3:0] aluc;
     wire [1:0] fwda, fwdb;
+    wire [4:0] exe_regw_addr, mem_regw_addr, wb_regw_addr;
+    wire exe_mem2reg, mem_wreg, exe_wreg, wb_wreg;
+
     Control cu(
         .op(op), .rs(rs), .rt(rt), .func(func), .rsrtequ(rsrtequ),
+        .exe_regw_addr(exe_regw_addr),
+        .mem_regw_addr(mem_regw_addr),
+        .wb_regw_addr(wb_regw_addr),
+        .exe_mem2reg(exe_mem2reg),
+        .mem_wreg(mem_wreg),
+        .exe_wreg(exe_wreg),
+        .wb_wreg(wb_wreg),
+
         .jal(jal),
         .wreg(wreg),
         .branch(branch),
@@ -68,7 +79,9 @@ module PCPU(
         .remain_pc(remain_pc)
     );
 
-    wire reg_we, reg_w, reg_w_data; // NOTE: from later stages
+    wire reg_we;
+	 wire [4:0] reg_w; // NOTE: from later stages
+    wire [31:0] reg_w_data; // NOTE: from later stages
     wire [31:0] reg_a_data, reg_b_data;
     RegFile regs(
         .clk(clk), .rst(rst),
@@ -127,7 +140,9 @@ module PCPU(
         .res(ex_alu_result)
     );
     assign fwd_ex_alu_res = ex_alu_result;
-
+    assign exe_mem2reg = idex_m2reg;
+    assign exe_wreg = idex_wreg;
+    assign exe_regw_addr = idex_wreg_dst;
 
     // EX/MEM pipeline register
     reg [31:0] exmem_ir;
@@ -151,7 +166,8 @@ module PCPU(
     assign data_write = exmem_b_data;
     assign fwd_mem_alu_res = exmem_alu_result;
     assign fwd_mem_data = data_mem;
-
+    assign mem_wreg = exmem_wreg;
+    assign mem_regw_addr = exmem_wreg_dst;
 
     // MEM/WB pipeline register
     reg [31:0] memwb_ir;
@@ -172,5 +188,7 @@ module PCPU(
     assign reg_we = memwb_wreg;
     assign reg_w = memwb_wreg_dst;
     assign reg_w_data = memwb_m2reg ? memwb_data : memwb_alu_result;
+    assign wb_wreg = memwb_wreg;
+    assign wb_regw_addr = memwb_wreg_dst;
 
 endmodule
