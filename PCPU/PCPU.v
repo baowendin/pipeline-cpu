@@ -48,18 +48,17 @@ module PCPU(
     wire jal, wreg, m2reg, wmem, aluimm, shift, sext, jr, reg_wb_rd, jump;
     wire [3:0] aluc;
     wire [1:0] fwda, fwdb;
-    wire [4:0] exe_regw_addr, mem_regw_addr, wb_regw_addr;
-    wire exe_mem2reg, mem_wreg, exe_wreg, wb_wreg;
+    wire [4:0] exe_regw_addr, mem_regw_addr;
+    wire exe_wreg, exe_mem2reg, mem_wreg, mem_mem2reg;
 
     Control cu(
         .op(op), .rs(rs), .rt(rt), .func(func), .rsrtequ(rsrtequ),
         .exe_regw_addr(exe_regw_addr),
         .mem_regw_addr(mem_regw_addr),
-        .wb_regw_addr(wb_regw_addr),
+        .exe_wreg(exe_wreg),
         .exe_mem2reg(exe_mem2reg),
         .mem_wreg(mem_wreg),
-        .exe_wreg(exe_wreg),
-        .wb_wreg(wb_wreg),
+        .mem_mem2reg(mem_mem2reg),
 
         .jal(jal),
         .wreg(wreg),
@@ -167,6 +166,7 @@ module PCPU(
     assign fwd_mem_alu_res = exmem_alu_result;
     assign fwd_mem_data = data_mem;
     assign mem_wreg = exmem_wreg;
+    assign mem_mem2reg = exmem_m2reg;
     assign mem_regw_addr = exmem_wreg_dst;
 
     // MEM/WB pipeline register
@@ -188,7 +188,5 @@ module PCPU(
     assign reg_we = memwb_wreg;
     assign reg_w = memwb_wreg_dst;
     assign reg_w_data = memwb_m2reg ? memwb_data : memwb_alu_result;
-    assign wb_wreg = memwb_wreg;
-    assign wb_regw_addr = memwb_wreg_dst;
 
 endmodule

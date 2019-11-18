@@ -7,11 +7,10 @@ module Control(
 	input wire rsrtequ,
 	input wire [4:0] exe_regw_addr,
 	input wire [4:0] mem_regw_addr,
-	input wire [4:0] wb_regw_addr,
+	input wire exe_wreg,
 	input wire exe_mem2reg,
 	input wire mem_wreg,
-	input wire exe_wreg,
-	input wire wb_wreg,
+	input wire mem_mem2reg,
 	
 	output reg jal,
 	output reg wreg,
@@ -56,13 +55,17 @@ module Control(
 			INS_R: begin
 				case(func)
 					RFUNC_SRL: begin
+						aluc = ALUC_SRL;
 						shift = 1'b1;
+						regrt = 1'b1;
+						wreg = 1'b1;
 						rt_used = 1;
 					end
 					RFUNC_JR: begin
-						mem2reg = 1'b1;
+						// mem2reg = 1'b1;
 						rs_used = 1'b1;
 						branch = 1'b1;
+						jr = 1;
 					end
 					RFUNC_ADD: begin
 						aluc = ALUC_ADD;
@@ -114,6 +117,7 @@ module Control(
 			end
 			INS_JAL: begin
 				jal = 1'b1;
+				jump = 1;
 				wreg = 1'b1;
 				aluc = ALUC_ADD;
 				branch = 1'b1;
@@ -122,6 +126,7 @@ module Control(
 				aluc = ALUC_ADD;
 				aluimm = 1'b1;
 				if (rsrtequ == 1'b1) branch = 1'b1;
+				sext = 1'b1;
 				rs_used = 1'b1;
 				rt_used = 1'b1;
 			end
@@ -129,19 +134,21 @@ module Control(
 				aluc = ALUC_ADD;
 				aluimm = 1'b1;
 				if (rsrtequ == 1'b0) branch = 1'b1;
+				sext = 1'b1;
 				rs_used = 1'b1;
 				rt_used = 1'b1;
 			end
 			INS_ADDI: begin
 				aluc = ALUC_ADD;
 				aluimm = 1'b1;
+				sext = 1'b1;
 				wreg = 1'b1;
 				rs_used = 1'b1;				
 			end
 			INS_ANDI: begin
 				aluc = ALUC_AND;
 				aluimm = 1'b1;
-				sext = 1'b1;
+				sext = 1'b0;
 				wreg = 1'b1;
 				rs_used = 1'b1;			
 			end
@@ -155,7 +162,7 @@ module Control(
 			INS_ORI: begin
 				aluc = ALUC_XOR;
 				aluimm = 1'b1;
-				sext = 1'b1;
+				sext = 1'b0;
 				wreg = 1'b1;	
 				rs_used = 1'b1;			
 			end
@@ -176,6 +183,7 @@ module Control(
 				sext = 1'b1;
 				wmem = 1'b1;
 				rs_used = 1'b1;
+				rt_used = 1'b1;
 			end
 		endcase		
 	end
@@ -184,7 +192,7 @@ module Control(
 	always @(*) begin
 		stall = 0;
 		remain_pc = 0;
-		if (rs_used && rs !=0) begin
+		if (rs_used && rs != 0) begin
 			if (exe_regw_addr == rs && exe_mem2reg) begin
 				stall = 1'b1;
 				remain_pc = 1'b1;
@@ -196,7 +204,7 @@ module Control(
 				remain_pc = 1'b1;
 			end
 		end
-		else if (rsrtequ == 1'b1 && (op == INS_BNE || op == INS_BEQ)) begin
+		else if (branch) begin
 			stall = 1'b1;
 			remain_pc = 0;
 		end
@@ -208,19 +216,19 @@ module Control(
 		fwdb = 2'b00;
 		if (rs_used && rs != 0) begin
 			if (exe_regw_addr == rs && exe_wreg)
-				fwda = 2'b11;
-			else if (mem_regw_addr == rs && mem_wreg)
-				fwda = 2'b10;
-			else if (wb_regw_addr == rs && wb_wreg)
 				fwda = 2'b01;
+			else if (mem_regw_addr == rs && mem_wreg && !mem2reg)
+				fwda = 2'b10;
+			else if (mem_regw_addr == rs && mem_wreg && mem2reg)
+				fwda = 2'b11;
 		end
 		if (rt_used && rt != 0) begin
 			if (exe_regw_addr == rt && exe_wreg)
-				fwdb = 2'b11;
-			else if (mem_regw_addr == rt && mem_wreg)
-				fwdb = 2'b10;
-			else if (wb_regw_addr == rt && wb_wreg)
 				fwdb = 2'b01;
+			else if (mem_regw_addr == rt && mem_wreg && !mem2reg)
+				fwdb = 2'b10;
+			else if (mem_regw_addr == rt && mem_wreg && mem2reg)
+				fwdb = 2'b11;
 		end
 	end
 endmodule
