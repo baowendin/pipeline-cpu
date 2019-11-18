@@ -167,7 +167,8 @@ module Control(
 				rs_used = 1'b1;			
 			end
 			INS_LUI: begin
-				aluc = ALUC_LUI;				
+				aluc = ALUC_LUI;			
+				aluimm = 1;	
 				wreg = 1'b1;
 			end
 			INS_LW: begin
