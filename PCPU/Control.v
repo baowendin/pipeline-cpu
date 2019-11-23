@@ -184,7 +184,10 @@ module Control(
 				rs_used = 1'b1;
 				rt_used = 1'b1;
 			end
-		endcase		
+		endcase
+		branch = stall ? 0 : branch;
+        	wreg = stall ? 0 : wreg;
+        	wmem = stall ? 0 : wmem;
 	end
 
 	// the stall situation, including two hazards
