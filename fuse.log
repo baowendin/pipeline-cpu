@@ -1,4 +1,4 @@
-Running: fuse.exe -relaunch -intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_isim_beh.exe" -prj "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_beh.prj" "PCPU_sim" "work.glbl" 
+Running: fuse.exe -relaunch -intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_isim_beh.exe" -prj "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_beh.prj" "work.PCPU_sim" "work.glbl" 
 ISim P.20131013 (signature 0x7708f090)
 Number of CPUs detected in this system: 8
 Turning on mult-threading, number of parallel sub-compilation jobs: 16 
@@ -25,5 +25,5 @@ Waiting for 1 sub-compilation(s) to finish...
 WARNING:Simulator - Unable to copy libPortabilityNOSH.dll to the simulation executable directory: boost::filesystem::copy_file: The system cannot find the path specified, "isim\PCPU_sim_isim_beh.exe.sim\libPortability.dll".
 Compiled 7 Verilog Units
 Built simulation executable C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_isim_beh.exe
-Fuse Memory Usage: 29112 KB
-Fuse CPU Usage: 343 ms
+Fuse Memory Usage: 29176 KB
+Fuse CPU Usage: 405 ms

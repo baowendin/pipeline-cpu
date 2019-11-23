@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_isim_beh.exe" -prj "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_beh.prj" "PCPU_sim" "work.glbl" 
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_isim_beh.exe" -prj "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_beh.prj" "work.PCPU_sim" "work.glbl" 
