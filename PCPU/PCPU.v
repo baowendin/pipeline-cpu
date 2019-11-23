@@ -12,17 +12,17 @@ module PCPU(
     `include "Parameters.v"
 
     // PC
-    wire remain_pc; // NOTE: from later stages
+    wire stall, cancel_next; // NOTE: from later stages
     wire [31:0] pc_new; // NOTE: from later stages
     reg [31:0] pc = 0;
     assign inst_addr = pc;
     always @(posedge clk or posedge rst) begin
-        pc <= rst ? 0 : (remain_pc ? pc : pc_new);
+        pc <= rst ? 0 : (stall ? pc : pc_new);
     end
 
 
     // IF stage
-    wire branch, stall;
+    wire branch;
     wire [31:0] branch_target;
     assign pc_new = branch ? branch_target : pc + 4'h4;
 
@@ -31,7 +31,18 @@ module PCPU(
     reg [31:0] ifid_ir = 0, ifid_pc = 0;
     always @(posedge clk or posedge rst) begin
         ifid_pc <= rst ? 0 : pc + 4'h4;
-        ifid_ir <= rst ? 0 : (stall ? (remain_pc ? ifid_ir : 0) : inst_mem);
+        if (rst) begin
+            ifid_ir <= 0;
+        end
+        else if (stall) begin
+            ifid_ir <= ifid_ir; 
+        end
+        else if (cancel_next) begin
+            ifid_ir <= 0;
+        end
+        else begin
+            ifid_ir <= inst_mem;
+        end
     end
 
 
@@ -75,7 +86,7 @@ module PCPU(
         .fwda(fwda),
         .stall(stall),
         .jump(jump),
-        .remain_pc(remain_pc)
+        .cancel_next(cancel_next)
     );
 
     wire reg_we;
