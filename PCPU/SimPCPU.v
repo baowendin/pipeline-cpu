@@ -73,9 +73,9 @@ module PCPU_sim;
 	end
 	
 	always begin
-		#5;
+		#10;
 		clk = 1;
-		#5;
+		#10;
 		clk = 0;
 	end
       

@@ -11,7 +11,7 @@ Analyzing Verilog file "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU/PCPU.v" 
 Analyzing Verilog file "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU/SimPCPU.v" into library work
 Analyzing Verilog file "K:/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v" into library work
 Starting static elaboration
-WARNING:HDLCompiler:1016 - "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU/PCPU.v" Line 135: Port zero is not connected to this instance
+WARNING:HDLCompiler:1016 - "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU/PCPU.v" Line 146: Port zero is not connected to this instance
 Completed static elaboration
 Compiling module Control
 Compiling module RegFile
@@ -21,8 +21,9 @@ Compiling module PCPU
 Compiling module PCPU_sim
 Compiling module glbl
 Time Resolution for simulation is 1ps.
+Waiting for 1 sub-compilation(s) to finish...
 WARNING:Simulator - Unable to copy libPortabilityNOSH.dll to the simulation executable directory: boost::filesystem::copy_file: The system cannot find the path specified, "isim\PCPU_sim_isim_beh.exe.sim\libPortability.dll".
 Compiled 7 Verilog Units
 Built simulation executable C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_isim_beh.exe
-Fuse Memory Usage: 29124 KB
-Fuse CPU Usage: 452 ms
+Fuse Memory Usage: 29112 KB
+Fuse CPU Usage: 343 ms
