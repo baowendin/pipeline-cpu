@@ -27,7 +27,7 @@ module Control(
 	output reg [1:0] fwda,
 	output reg stall,
 	output reg jump,
-	output reg remain_pc
+	output reg cancel_next
 );
 	reg rs_used, rt_used;
 	parameter INS_R = 6'b000000, RFUNC_SLL = 6'b000000, RFUNC_SRL = 6'b000010, RFUNC_JR = 6'b001000, RFUNC_ADD = 6'b100000, RFUNC_SUB = 6'b100010, RFUNC_AND = 6'b100100,
