@@ -190,24 +190,22 @@ module Control(
 	// the stall situation, including two hazards
 	always @(*) begin
 		stall = 0;
-		remain_pc = 0;
+		cancel_next = 0;
 		if (rs_used && rs != 0) begin
 			if (exe_regw_addr == rs && exe_mem2reg) begin
 				stall = 1'b1;
-				remain_pc = 1'b1;
 			end
 		end 
 		else if (rt_used && rt != 0) begin
 			if (exe_regw_addr == rt && exe_mem2reg) begin
 				stall = 1'b1;
-				remain_pc = 1'b1;
 			end
 		end
 		else if (branch) begin
-			stall = 1'b1;
-			remain_pc = 0;
+			cancel_next = 1;
 		end
 	end
+
 
 	// the forward situation
 	always @(*) begin
