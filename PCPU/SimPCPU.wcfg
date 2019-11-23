@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="PCPU_sim" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="18" />
+   <wvobject fp_name="/PCPU_sim/inst_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">inst_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">inst_addr[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/inst_mem" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">inst_mem[31:0]</obj_property>
+      <obj_property name="ObjectShortName">inst_mem[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/data_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_addr[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/data_we" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">data_we</obj_property>
+      <obj_property name="ObjectShortName">data_we</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/data_write" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_write[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_write[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/inst_rom" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">inst_rom[0:15,31:0]</obj_property>
+      <obj_property name="ObjectShortName">inst_rom[0:15,31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/uut/idex_aluimm" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">idex_aluimm</obj_property>
+      <obj_property name="ObjectShortName">idex_aluimm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/uut/ex_alu_result" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ex_alu_result[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_alu_result[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/uut/alu_a" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_a[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_a[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/uut/alu_b" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_b[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_b[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/uut/stall" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">stall</obj_property>
+      <obj_property name="ObjectShortName">stall</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/uut/ifid_ir" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ifid_ir[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ifid_ir[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/uut/fwda" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">fwda[1:0]</obj_property>
+      <obj_property name="ObjectShortName">fwda[1:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/PCPU_sim/uut/fwdb" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">fwdb[1:0]</obj_property>
+      <obj_property name="ObjectShortName">fwdb[1:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="group142" type="group">
+      <obj_property name="label">Reg</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/PCPU_sim/uut/regs/a" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">a[4:0]</obj_property>
+         <obj_property name="ObjectShortName">a[4:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/PCPU_sim/uut/regs/b" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">b[4:0]</obj_property>
+         <obj_property name="ObjectShortName">b[4:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/PCPU_sim/uut/regs/a_data" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">a_data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">a_data[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/PCPU_sim/uut/regs/b_data" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">b_data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">b_data[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/PCPU_sim/uut/regs/w_data" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">w_data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">w_data[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/PCPU_sim/uut/regs/w" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">w[4:0]</obj_property>
+         <obj_property name="ObjectShortName">w[4:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/PCPU_sim/uut/regs/we" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">we</obj_property>
+         <obj_property name="ObjectShortName">we</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group141" type="group">
+      <obj_property name="label">ALU</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/PCPU_sim/uut/alu/A" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">A[31:0]</obj_property>
+         <obj_property name="ObjectShortName">A[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/PCPU_sim/uut/alu/B" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">B[31:0]</obj_property>
+         <obj_property name="ObjectShortName">B[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/PCPU_sim/uut/alu/ALU_operation" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">ALU_operation[3:0]</obj_property>
+         <obj_property name="ObjectShortName">ALU_operation[3:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/PCPU_sim/uut/alu/zero" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">zero</obj_property>
+         <obj_property name="ObjectShortName">zero</obj_property>
+      </wvobject>
+      <wvobject fp_name="/PCPU_sim/uut/alu/res" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">res[31:0]</obj_property>
+         <obj_property name="ObjectShortName">res[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

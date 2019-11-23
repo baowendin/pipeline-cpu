@@ -28,10 +28,10 @@ module PCPU(
 
 
     // IF/ID pipeline register
-    reg [31:0] ifid_ir, ifid_pc;
+    reg [31:0] ifid_ir = 0, ifid_pc = 0;
     always @(posedge clk or posedge rst) begin
         ifid_pc <= rst ? 0 : pc + 4'h4;
-        ifid_ir <= rst ? 0 : (stall ? 0 : inst_mem);
+        ifid_ir <= rst ? 0 : (stall ? (remain_pc ? ifid_ir : 0) : inst_mem);
     end
 
 
@@ -71,8 +71,8 @@ module PCPU(
         .sext(sext),
         .jr(jr), 
         .regrt(reg_wb_rd),
-        .fwdb(fwda),
-        .fwda(fwdb),
+        .fwdb(fwdb),
+        .fwda(fwda),
         .stall(stall),
         .jump(jump),
         .remain_pc(remain_pc)

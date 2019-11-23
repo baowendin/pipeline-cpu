@@ -148,21 +148,18 @@ module Control(
 			INS_ANDI: begin
 				aluc = ALUC_AND;
 				aluimm = 1'b1;
-				sext = 1'b0;
 				wreg = 1'b1;
 				rs_used = 1'b1;			
 			end
 			INS_ORI: begin
 				aluc = ALUC_OR;
 				aluimm = 1'b1;
-				sext = 1'b1;
 				wreg = 1'b1;	
 				rs_used = 1'b1;			
 			end
-			INS_ORI: begin
+			INS_XORI: begin
 				aluc = ALUC_XOR;
 				aluimm = 1'b1;
-				sext = 1'b0;
 				wreg = 1'b1;	
 				rs_used = 1'b1;			
 			end
@@ -177,6 +174,7 @@ module Control(
 				sext = 1'b1;
 				mem2reg = 1'b1;
 				rs_used = 1'b1;
+				wreg = 1'b1;
 			end
 			INS_SW: begin
 				aluc = ALUC_ADD;
@@ -218,17 +216,17 @@ module Control(
 		if (rs_used && rs != 0) begin
 			if (exe_regw_addr == rs && exe_wreg)
 				fwda = 2'b01;
-			else if (mem_regw_addr == rs && mem_wreg && !mem2reg)
+			else if (mem_regw_addr == rs && mem_wreg && !mem_mem2reg)
 				fwda = 2'b10;
-			else if (mem_regw_addr == rs && mem_wreg && mem2reg)
+			else if (mem_regw_addr == rs && mem_wreg && mem_mem2reg)
 				fwda = 2'b11;
 		end
 		if (rt_used && rt != 0) begin
 			if (exe_regw_addr == rt && exe_wreg)
 				fwdb = 2'b01;
-			else if (mem_regw_addr == rt && mem_wreg && !mem2reg)
+			else if (mem_regw_addr == rt && mem_wreg && !mem_mem2reg)
 				fwdb = 2'b10;
-			else if (mem_regw_addr == rt && mem_wreg && mem2reg)
+			else if (mem_regw_addr == rt && mem_wreg && mem_mem2reg)
 				fwdb = 2'b11;
 		end
 	end

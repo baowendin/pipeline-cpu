@@ -1,0 +1,28 @@
+Running: fuse.exe -relaunch -intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_isim_beh.exe" -prj "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_beh.prj" "PCPU_sim" "work.glbl" 
+ISim P.20131013 (signature 0x7708f090)
+Number of CPUs detected in this system: 8
+Turning on mult-threading, number of parallel sub-compilation jobs: 16 
+Determining compilation order of HDL files
+Analyzing Verilog file "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU/RegFile.v" into library work
+Analyzing Verilog file "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU/Control.v" into library work
+Analyzing Verilog file "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU/ALU.v" into library work
+Analyzing Verilog file "C:/Users/z/Documents/Projects/pipeline-cpu/MUX4T1_32.v" into library work
+Analyzing Verilog file "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU/PCPU.v" into library work
+Analyzing Verilog file "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU/SimPCPU.v" into library work
+Analyzing Verilog file "K:/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v" into library work
+Starting static elaboration
+WARNING:HDLCompiler:1016 - "C:/Users/z/Documents/Projects/pipeline-cpu/PCPU/PCPU.v" Line 135: Port zero is not connected to this instance
+Completed static elaboration
+Compiling module Control
+Compiling module RegFile
+Compiling module MUX4T1_32
+Compiling module ALU
+Compiling module PCPU
+Compiling module PCPU_sim
+Compiling module glbl
+Time Resolution for simulation is 1ps.
+WARNING:Simulator - Unable to copy libPortabilityNOSH.dll to the simulation executable directory: boost::filesystem::copy_file: The system cannot find the path specified, "isim\PCPU_sim_isim_beh.exe.sim\libPortability.dll".
+Compiled 7 Verilog Units
+Built simulation executable C:/Users/z/Documents/Projects/pipeline-cpu/PCPU_sim_isim_beh.exe
+Fuse Memory Usage: 29124 KB
+Fuse CPU Usage: 452 ms
