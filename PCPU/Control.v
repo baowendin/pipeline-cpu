@@ -206,12 +206,13 @@ module Control(
 				stall = 1'b1;
 			end
 		end
-		else if (branch) begin
-			cancel_next = 1;
-		end
 		branch = stall ? 0 : branch_t;
        		wreg = stall ? 0 : wreg_t;
        		wmem = stall ? 0 : wmem_t;
+		if (branch) begin
+			cancel_next = 1;
+		end
+		
 	end
 
 	// the forward situation
