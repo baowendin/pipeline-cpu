@@ -1,0 +1,10 @@
+Command line:
+   PCPU_sim_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  62488
+
+Sat Nov 23 20:19:38 2019
+
+
+ Elaboration Time: 0.046875 sec
