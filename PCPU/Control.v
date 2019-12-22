@@ -34,6 +34,8 @@ module Control(
 			RFUNC_OR = 6'b100101, RFUNC_XOR = 6'b100110, RFUNC_NOR = 6'b100111, RFUNC_SLT = 6'b101010;
 	parameter  INS_J = 6'b000010, INS_JAL = 6'b000011, INS_BEQ = 6'b000100, INS_BNE = 6'b000101, INS_LUI = 6'b001111;
 	parameter INS_ADDI = 6'b001000, INS_ANDI = 6'b001100, INS_ORI = 6'b001101, INS_XORI = 6'b001110, INS_LW = 6'b100011, INS_SW = 6'b101011;
+    parameter RFUNC_ADDU = 6'b100001, RFUNC_SUBU = 6'b100011, RFUNC_SLTU = 6'b101011, RFUNC_SRA = 6'b000011, RFUNC_SLLV = 6'b000100, RFUNC_SRLV = 6'b000110,RFUNC_SRAV = 6'b000111;
+    parameter INS_ADDIU = 6'b001001, INS_SLTI = 6'b001011, INS_SLTIU = 6'b001011;
 	`include "Parameters.v"
 
 	always @(*) begin
@@ -66,23 +68,30 @@ module Control(
 						rs_used = 1'b1;
 						branch_t = 1'b1;
 						jr = 1;
-					end
-					RFUNC_ADD: begin
+					end					
+                    RFUNC_ADD: begin
 						aluc = ALUC_ADD;
 						regrt = 1'b1;
 						wreg_t = 1'b1;
 						rs_used = 1;
 						rt_used = 1;
 					end
-					RFUNC_SUB: begin
+					RFUNC_SUB,RFUNC_SUBU: begin
 						regrt = 1'b1;
 						wreg_t = 1'b1;
 						aluc = ALUC_SUB;	
 						rs_used = 1'b1;
 						rt_used = 1'b1;					
 					end
-					RFUNC_AND: begin
+					RFUNC_AND,RFUNC_ADDU: begin
 						aluc = ALUC_AND;
+						wreg_t = 1'b1;
+						regrt = 1'b1;
+						rs_used = 1'b1;
+						rt_used = 1'b1;
+					end
+                    RFUNC_NOR: begin
+						aluc = ALUC_NOR;
 						wreg_t = 1'b1;
 						regrt = 1'b1;
 						rs_used = 1'b1;
@@ -102,13 +111,58 @@ module Control(
 						rs_used = 1'b1;
 						rt_used = 1'b1;
 					end
-					RFUNC_SLT: begin
+					RFUNC_SLT,RFUNC_SLTU: begin
 						aluc = ALUC_SLT;
 						wreg_t = 1;
 						regrt = 1'b1;
 						rs_used = 1'b1;
 						rt_used = 1'b1;
 					end
+                    RFUNC_SLL: begin
+                        aluc = ALUC_SLL;
+                        wreg_t = 1;
+                        regrt = 1;
+                        rt_used = 1;
+                        shift = 1;
+                    end
+                    RFUNC_SRL: begin
+                        aluc = ALUC_SRL_LOGICAL;
+                        wreg_t = 1;
+                        regrt = 1;
+                        rt_used = 1;
+                        shift = 1;
+                    end
+                    RFUNC_SRA: begin
+                        aluc = ALUC_SRL_ARITHMETIC;
+                        wreg_t = 1;
+                        regrt = 1;
+                        rt_used = 1;
+                        shift = 1;
+                    end
+                    RFUNC_SLLV: begin
+                        aluc = ALUC_SLL;
+                        wreg_t = 1;
+                        regrt = 1;
+                        rs_used = 1;
+                        rt_used = 1;
+                        shift = 1;
+                    end
+                    RFUNC_SRLV: begin
+                        aluc = ALUC_SRL_LOGICAL;
+                        wreg_t = 1;
+                        regrt = 1;
+                        rt_used = 1;
+                        rs_used = 1;
+                        shift = 1;                       
+                    end
+                    RFUNC_SRAV: begin
+                        aluc = ALUC_SRL_ARITHMETIC;
+                        wreg_t = 1;
+                        regrt = 1;
+                        rt_used = 1;
+                        rs_used = 1;
+                        shift = 1;
+                    end                   
 				endcase	
 			end
 			INS_J: begin
@@ -138,7 +192,7 @@ module Control(
 				rs_used = 1'b1;
 				rt_used = 1'b1;
 			end
-			INS_ADDI: begin
+			INS_ADDI,INS_ADDIU: begin
 				aluc = ALUC_ADD;
 				aluimm = 1'b1;
 				sext = 1'b1;
@@ -184,9 +238,14 @@ module Control(
 				rs_used = 1'b1;
 				rt_used = 1'b1;
 			end
-		endcase	
-       
-
+            INS_SLTI,INS_SLTIU: begin
+                aluc = ALUC_SLT;
+				wreg_t = 1;
+				rs_used = 1'b1;
+                sext = 1;
+                aluimm = 1;
+            end
+		endcase	      
 	end
 
 	// the stall situation, including two hazards
