@@ -111,8 +111,15 @@ module Control(
 						rs_used = 1'b1;
 						rt_used = 1'b1;
 					end
-					RFUNC_SLT,RFUNC_SLTU: begin
+					RFUNC_SLT: begin
 						aluc = ALUC_SLT;
+						wreg_t = 1;
+						regrt = 1'b1;
+						rs_used = 1'b1;
+						rt_used = 1'b1;
+					end
+					RFUNC_SLTU: begin
+						aluc = ALUC_SLTU;
 						wreg_t = 1;
 						regrt = 1'b1;
 						rs_used = 1'b1;
@@ -126,42 +133,39 @@ module Control(
                         shift = 1;
                     end
                     RFUNC_SRL: begin
-                        aluc = ALUC_SRL_LOGICAL;
+                        aluc = ALUC_SRL;
                         wreg_t = 1;
                         regrt = 1;
                         rt_used = 1;
                         shift = 1;
                     end
                     RFUNC_SRA: begin
-                        aluc = ALUC_SRL_ARITHMETIC;
+                        aluc = ALUC_SRA;
                         wreg_t = 1;
                         regrt = 1;
                         rt_used = 1;
                         shift = 1;
                     end
                     RFUNC_SLLV: begin
-                        aluc = ALUC_SLL;
+                        aluc = ALUC_SLLV;
                         wreg_t = 1;
                         regrt = 1;
                         rs_used = 1;
                         rt_used = 1;
-                        shift = 1;
                     end
                     RFUNC_SRLV: begin
-                        aluc = ALUC_SRL_LOGICAL;
+                        aluc = ALUC_SRLV;
                         wreg_t = 1;
                         regrt = 1;
                         rt_used = 1;
-                        rs_used = 1;
-                        shift = 1;                       
+                        rs_used = 1;                   
                     end
                     RFUNC_SRAV: begin
-                        aluc = ALUC_SRL_ARITHMETIC;
+                        aluc = ALUC_SRAV;
                         wreg_t = 1;
                         regrt = 1;
                         rt_used = 1;
                         rs_used = 1;
-                        shift = 1;
                     end                   
 				endcase	
 			end
